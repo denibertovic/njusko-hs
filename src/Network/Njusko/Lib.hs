@@ -63,7 +63,7 @@ entrypoint args = do
     where appendBase xs = map (\x -> T.append baseURL (T.pack x)) xs
 
 processResult :: [T.Text] -> Connection -> NjuskoArgs -> IO ()
-processResult [] _ _ = putStrLn "No new URLs found."
+processResult [] _ _ = return ()
 processResult xs c args = do
         case (debug args) of
             True -> putStrLn $ T.unpack (body xs)
