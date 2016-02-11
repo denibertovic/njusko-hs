@@ -1,7 +1,10 @@
 # Njusko
 
-A simple scraper for Njuskalo ads. Scrapes the ulrls you give it and notifies you
+A simple scraper for Njuskalo ads. Scrapes the urls you give it and notifies you
 via email when new entries are found.
+
+This is a CLI app that is intended to be used as a cron job.
+
 
 
 ## Usage
@@ -20,6 +23,10 @@ via email when new entries are found.
       -n,--notify EMAIL        The email to send notifications to.
       --debug                  Print out results to stdout and don't send emails
 
+Create a urls.txt file with njuskalo search param in it. Be sure to remove the "page"
+parameter though. The scraper will parse that file and search all pages for a given url.
+It will store the new found ads into a sqlite databse and notify you if there are any
+new ads.
 
 ## Issues
 
