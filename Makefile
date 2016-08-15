@@ -1,13 +1,17 @@
 .PHONY = build static-build release clean
 
-VERSION=0.1.0.1
+PROJECT_NAME ?= $(shell grep "^name" njusko-hs.cabal | cut -d " " -f17)
+VERSION ?= $(shell grep "^version:" njusko-hs.cabal | cut -d " " -f14)
+RESOLVER ?= $(shell grep "^resolver:" stack.yaml | cut -d " " -f2)
+GHC_VERSION ?= $(shell stack ghc -- --version | cut -d " " -f8)
 ARCH=$(shell uname -m)
-NAME=njusko-hs
+
+BINARY_PATH = `pwd`/.stack-work/install/${ARCH}-linux/${RESOLVER}/${GHC_VERSION}/bin/${PROJECT_NAME}-exe
 
 build:
 	@stack build
 	@echo "\nBinary available at:\n"
-	@echo "`pwd`/.stack-work/install/${ARCH}-linux/lts-3.16/7.10.2/bin/${NAME}-exe"
+	@echo ${BINARY_PATH}
 
 
 # TODO: Doesn't work. Fix it.
@@ -26,7 +30,7 @@ build:
 # 	-threaded \
 # 	-odir release/build \
 # 	-hidir release/build \
-# 	-o release/${NAME}-${VERSION}-linux-${ARCH}
+# 	-o release/${PROJECT_NAME}-${VERSION}-linux-${ARCH}
 
 clean:
 	@rm -rf release
@@ -36,7 +40,7 @@ release: build
 	# @echo "STATIC BINARY: `pwd`/release/${NAME}-${VERSION}-linux-${ARCH}\n"
 
 run:
-	@`pwd`/.stack-work/install/${ARCH}-linux/lts-3.16/7.10.2/bin/${NAME}-exe \
+	@${BINARY_PATH} \
 		--url-file urls.txt \
 		--type APT \
 		--notify fake.email@example.com \
