@@ -40,6 +40,10 @@ Report issues on the Issue tracker: https://github.com/denibertovic/njusko-hs/is
 
     `git clone git@github.com:denibertovic/njusko-hs.git`
 
+2.1. Install pre-requisites:
+
+    sudo apt-get install libcurl4-gnutls-dev
+
 3. Build:
 
     `cd njusko-hs && make build`
