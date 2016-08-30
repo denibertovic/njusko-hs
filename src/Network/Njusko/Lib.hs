@@ -107,7 +107,7 @@ scrapePage :: URL -> IO [URL]
 scrapePage u = fmap (flatten . catMaybes) $ mapM allLinks $ map nextPage pages
         where nextPage p = u ++ "page=" ++ (show p)
               -- FIX : This is stupid we should page through all the pages
-              pages = [1..10]
+              pages = [1..20]
 
 allLinks :: String -> IO (Maybe [URL])
 allLinks l = do
