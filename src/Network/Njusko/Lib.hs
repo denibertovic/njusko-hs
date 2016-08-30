@@ -105,7 +105,7 @@ flatten (x:xs) = x ++ flatten xs
 
 scrapePage :: URL -> IO [URL]
 scrapePage u = fmap (flatten . catMaybes) $ mapM allLinks $ map nextPage pages
-        where nextPage p = u ++ "page=" ++ (show p)
+        where nextPage p = u ++ "?page=" ++ (show p)
               -- FIX : This is stupid we should page through all the pages
               pages = [1..20]
 
@@ -115,7 +115,7 @@ allLinks l = do
         return a
     where
         getLinks :: Scraper String [URL]
-        getLinks = chroots (li @: [hasClass "EntityList-item--Regular"]) link
+        getLinks = chroots (li @: [hasClass "EntityList-item"]) link
 
         link :: Scraper String URL
         link = do
