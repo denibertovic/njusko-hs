@@ -89,7 +89,7 @@ njuskoScrape :: NjuskoArgs -> IO [URL]
 njuskoScrape args = do
         f <- TIO.readFile $ urlFilePath args
         let urls = filter (/= "") $ T.lines f
-        uniqueAndFlatten $ for urls $ \u -> scrapePage (T.unpack u)
+        filterInvalid $ uniqueAndFlatten $ for urls $ \u -> scrapePage (T.unpack u)
     where filterInvalid xs = fmap (filter (\x -> T.isPrefixOf (getValidPrefix $ scraperType args) (T.pack x))) xs
           uniqueAndFlatten xs = fmap (unique . flatten) xs
 
