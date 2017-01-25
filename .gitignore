@@ -2,3 +2,4 @@
 /release
 /db.sqlite
 /urls.txt
+*.swp
