@@ -3,6 +3,7 @@
 module Network.Njusko.Lib where
 
 
+import           Control.Concurrent.Thread.Delay     (delay)
 import           Control.Exception                   (catch)
 import           Control.Monad                       (forM, forM_)
 import           Data.List                           (nub, reverse)
@@ -99,8 +100,8 @@ getValidPrefix t = case t of
                        CAR -> "/auti/"
 
 flatten :: [[a]] -> [a]
-flatten [] = []
-flatten [[]] = []
+flatten []     = []
+flatten [[]]   = []
 flatten (x:xs) = x ++ flatten xs
 
 scrapePage :: URL -> IO [URL]
@@ -111,6 +112,7 @@ scrapePage u = fmap (flatten . catMaybes) $ mapM allLinks $ map nextPage pages
 
 allLinks :: String -> IO (Maybe [URL])
 allLinks l = do
+        delay 2000
         a <- scrapeURL l getLinks
         return a
     where
