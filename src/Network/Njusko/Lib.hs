@@ -112,7 +112,7 @@ scrapePage u = fmap (flatten . catMaybes) $ mapM allLinks $ map nextPage pages
 
 allLinks :: String -> IO (Maybe [URL])
 allLinks l = do
-        delay 2000
+        delay 10000
         a <- scrapeURL l getLinks
         return a
     where
