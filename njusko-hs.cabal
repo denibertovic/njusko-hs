@@ -26,6 +26,7 @@ library
                     ,  smtp-mail
                     ,  HStringTemplate
                     ,  unbounded-delays
+                    ,  curl
   default-language:    Haskell2010
 
 executable njusko-hs-exe

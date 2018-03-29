@@ -12,6 +12,7 @@ import qualified Data.Text.Lazy                      as T
 import qualified Data.Text.Lazy.IO                   as TIO
 import           Data.Traversable                    (for)
 import           Database.SQLite.Simple
+import qualified Network.Curl                        as Curl
 import           Network.Mail.SMTP                   (plainTextPart, sendMail,
                                                       simpleMail)
 import           Network.Mail.SMTP.Types
@@ -110,10 +111,13 @@ scrapePage u = fmap (flatten . catMaybes) $ mapM allLinks $ map nextPage pages
               -- FIX : This is stupid we should page through all the pages
               pages = [1..20]
 
+fakeAgent :: String
+fakeAgent = "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.0"
+
 allLinks :: String -> IO (Maybe [URL])
 allLinks l = do
         delay 10000
-        a <- scrapeURL l getLinks
+        a <- scrapeURLWithOpts [Curl.CurlUserAgent fakeAgent, Curl.CurlFollowLocation True] l getLinks
         return a
     where
         getLinks :: Scraper String [URL]
