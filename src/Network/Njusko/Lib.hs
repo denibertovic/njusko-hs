@@ -3,7 +3,7 @@
 module Network.Njusko.Lib where
 
 
-import           Control.Concurrent.Thread.Delay     (delay)
+import           Control.Concurrent                  (threadDelay)
 import           Control.Exception                   (catch)
 import           Control.Monad                       (forM, forM_)
 import           Data.List                           (nub, reverse)
@@ -116,7 +116,7 @@ fakeAgent = "Mozilla/5.0 (X11; Linux x86_64; rv:52.0) Gecko/20100101 Firefox/52.
 
 allLinks :: String -> IO (Maybe [URL])
 allLinks l = do
-        delay 10000
+        threadDelay 5000000
         a <- scrapeURLWithOpts [Curl.CurlUserAgent fakeAgent, Curl.CurlFollowLocation True] l getLinks
         return a
     where
