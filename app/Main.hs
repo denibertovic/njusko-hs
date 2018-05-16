@@ -13,7 +13,7 @@ firstPage = 0
 main :: IO ()
 main = execParser opts >>= entrypoint
   where
-    opts = info (helper <*> njuskoArgs)
+    opts = info (helper <*> versionOpt <*> njuskoArgs)
       ( fullDesc
      <> progDesc "Scrapes new apartments from Njuskalo given a search link."
      <> header "HNjusko - Njuskalo scraper in Haskell" )

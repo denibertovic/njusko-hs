@@ -6,7 +6,9 @@ module Network.Njusko.Options where
 
 import           Data.Data           (Data)
 import           Data.Typeable       (Typeable)
+import           Data.Version        (showVersion)
 import           Options.Applicative
+import           Paths_njusko
 
 data ScraperType = APT | CAR deriving (Eq, Show, Read, Data, Typeable)
 
@@ -16,6 +18,11 @@ data NjuskoArgs = NjuskoArgs
             , notificationEmails :: [String]
             , debug              :: Bool
             }
+
+versionOpt = infoOption (showVersion version) (
+               long "version"
+               <> short 'v'
+               <> help "Show version.")
 
 njuskoArgs :: Parser NjuskoArgs
 njuskoArgs = NjuskoArgs
