@@ -1,4 +1,4 @@
-.PHONY = build static-build release clean help run
+.PHONY: build static-build release clean help run
 
 .DEFAULT_GOAL = help
 
