@@ -5,6 +5,7 @@
 module Network.Njusko.Options where
 
 import           Data.Data           (Data)
+import           Data.Monoid         ((<>))
 import           Data.Typeable       (Typeable)
 import           Data.Version        (showVersion)
 import           Options.Applicative

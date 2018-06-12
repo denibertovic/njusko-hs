@@ -4,6 +4,7 @@
 module Main where
 
 import           Network.Njusko.Lib
+import           Data.Monoid ((<>))
 import           Network.Njusko.Options
 import           Options.Applicative
 

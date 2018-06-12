@@ -6,6 +6,7 @@ module Network.Njusko.Lib where
 import           Control.Concurrent                  (threadDelay)
 import           Control.Exception                   (catch)
 import           Control.Monad                       (forM, forM_)
+import Data.Monoid ((<>))
 import           Data.List                           (nub, reverse)
 import           Data.Maybe                          (catMaybes)
 import qualified Data.Text.Lazy                      as T
@@ -121,14 +122,19 @@ allLinks l = do
         return a
     where
         getLinks :: Scraper String [URL]
-        getLinks = chroots (li @: [hasClass "EntityList-item"]) link
+        getLinks = chroots (li @: [ hasClass "EntityList-item"
+                                  , notP $ hasClass "EntityList-item--Latest"
+                                  , notP $ hasClass "EntityList-item--SuperVau"
+                                  , notP $ hasClass "EntityList-item--FeaturedStore"
+                                  ]
+                           ) link
 
         link :: Scraper String URL
         link = do
            url <- attr href $ a
            return $ url
 
-        href = "href" :: String
-        li = "li" :: String
-        a = "a" :: String
+        href = "href"
+        li = "li"
+        a = "a"
 
