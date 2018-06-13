@@ -133,24 +133,26 @@ fakeAgent =
 
 allLinks :: String -> IO (Maybe [URL])
 allLinks l = do
-    threadDelay 20000000
-
-    scrapeURLWithOpts
-      [Curl.CurlUserAgent fakeAgent, Curl.CurlFollowLocation True]
-      l
-      getLinks
-  where getLinks :: Scraper String [URL]
-        getLinks = chroots (li @:
-          [ hasClass "EntityList-item"
-          , notP $ hasClass "EntityList-item--Latest"
-          , notP $ hasClass "EntityList-item--SuperVau"
-          , notP $ hasClass "EntityList-item--FeaturedStore"
-          ]) link
-        link :: Scraper String URL
-        link = do
-          url <- attr href $ a
-          return $ url
-        href = "href"
-        li = "li"
-        a = "a"
-
+  threadDelay 20000000
+  scrapeURLWithOpts
+    [Curl.CurlUserAgent fakeAgent, Curl.CurlFollowLocation True]
+    l
+    getLinks
+  where
+    getLinks :: Scraper String [URL]
+    getLinks =
+      chroots
+        (li @:
+         [ hasClass "EntityList-item"
+         , notP $ hasClass "EntityList-item--Latest"
+         , notP $ hasClass "EntityList-item--SuperVau"
+         , notP $ hasClass "EntityList-item--FeaturedStore"
+         ])
+        link
+    link :: Scraper String URL
+    link = do
+      url <- attr href $ a
+      return $ url
+    href = "href"
+    li = "li"
+    a = "a"
