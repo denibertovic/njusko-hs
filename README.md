@@ -1,10 +1,5 @@
 # Njusko
 
-| Master |
-| -------|
-| [![master](https://travis-ci.org/denibertovic/njusko-hs.svg?branch=master)](https://travis-ci.org/denibertovic/njusko-hs) |
-
-
 A simple scraper for Njuskalo ads. Scrapes the urls you give it and notifies you
 via email when new entries are found.
 
